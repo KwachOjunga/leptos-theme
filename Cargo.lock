@@ -1076,7 +1076,7 @@ dependencies = [
 
 [[package]]
 name = "leptos_theme"
-version = "0.1.2"
+version = "0.1.3"
 dependencies = [
  "codee",
  "console_log",
