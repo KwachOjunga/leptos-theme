@@ -1,10 +1,8 @@
 use crate::types::Theme;
 use codee::string::JsonSerdeCodec;
-use leptos::logging::log;
 use leptos::prelude::*;
 use leptos_use::storage::use_local_storage;
-// use leptos_use::utils::JsonCodec;
-use leptos_use::{use_media_query, use_preferred_dark};
+use leptos_use::use_media_query;
 
 /// Define a constant for the local storage key used to store the theme setting.
 const STORAGE_KEY: &'static str = "theme";
@@ -67,7 +65,7 @@ pub fn use_theme() -> RwSignal<Theme> {
 #[component]
 pub fn ThemeProvider(
     #[prop(default = false)] use_data_attribute: bool,
-    #[prop(default = true)] enable_system: bool,
+    // #[prop(default = true)] enable_system: bool,
     children: Children,
 ) -> impl IntoView {
     let is_dark_preferred_signal = use_media_query("(prefers-color-scheme: dark)");
@@ -91,7 +89,7 @@ pub fn ThemeProvider(
     provide_context(theme_state.clone());
 
     // Update local storage whenever the theme state changes
-    create_effect(move |_| {
+    Effect::new(move |_| {
         let current_theme = theme_state.get();
         set_theme_storage_state.set(current_theme.clone());
         update_css_for_theme(current_theme, prefers_dark(), use_data_attribute)
