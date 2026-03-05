@@ -14,10 +14,11 @@ readme = "README.md"
 
 [dependencies]
 console_log = "1.0.0"
-leptos = { version = "0.6.5", features = ["csr", "nightly"] }
-leptos-use = { version = "0.10.1", features = ["serde"] }
+leptos = { version = "0.8", features = ["csr", "nightly"] }
+leptos-use = { version = "0.18", features = ["default"] }
 wasm-bindgen = "0.2.89"
 web-sys = { version = "0.3.66" }
 serde = { version = "1.0.194" }
 serde_json = "1.0.111"
 rstest = "0.18.2"
+codee = { version = "0.3.5", features = ["json_serde"] }

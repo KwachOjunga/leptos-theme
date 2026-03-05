@@ -1,8 +1,9 @@
 use crate::types::Theme;
-use leptos::*;
+use codee::string::JsonSerdeCodec;
 use leptos::logging::log;
+use leptos::prelude::*;
 use leptos_use::storage::use_local_storage;
-use leptos_use::utils::JsonCodec;
+// use leptos_use::utils::JsonCodec;
 use leptos_use::{use_media_query, use_preferred_dark};
 
 /// Define a constant for the local storage key used to store the theme setting.
@@ -70,11 +71,17 @@ pub fn ThemeProvider(
     children: Children,
 ) -> impl IntoView {
     let is_dark_preferred_signal = use_media_query("(prefers-color-scheme: dark)");
-    let prefers_dark = move || if is_dark_preferred_signal.get() { true } else { false };
+    let prefers_dark = move || {
+        if is_dark_preferred_signal.get() {
+            true
+        } else {
+            false
+        }
+    };
 
     // Attempt to retrieve the theme from local storage
     let (theme_storage_state, set_theme_storage_state, _) =
-        use_local_storage::<Theme, JsonCodec>(STORAGE_KEY);
+        use_local_storage::<Theme, JsonSerdeCodec>(STORAGE_KEY);
 
     // Determine the initial theme from local storage
     let initial_theme = theme_storage_state.get();
